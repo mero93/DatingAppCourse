@@ -1,0 +1,36 @@
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+    <h2 class="text-center text-primary">SignUp</h2>
+    <div class="form-group">
+        <div class="form-group">
+            <label for="" style="margin-right: 10px;" class="control-label">I am a: </label>
+            <label for="" class="radio-inline">
+                <input type="radio" value="male" formControlName="gender"> Male
+                <input type="radio" value="female" formControlName="gender" class="ml-3"> Female
+            </label>
+        </div>
+        <app-text-input [formControl]="registerForm.controls['username']" [label]="'username'"></app-text-input>
+        <app-text-input [formControl]="registerForm.controls['knownAs']" [label]="'known as'"></app-text-input>
+        <app-date-input [formControl]="registerForm.controls['dateOfBirth']" [label]="'Date of Birth'" [maxDate]="maxDate"></app-date-input>
+        <app-text-input [formControl]="registerForm.controls['city']" [label]="'city'"></app-text-input>
+        <app-text-input [formControl]="registerForm.controls['country']" [label]="'country'"></app-text-input>
+        <app-text-input [formControl]="registerForm.controls['password']" [label]="'password'" [type]="'password'"></app-text-input>
+        <app-text-input [formControl]="registerForm.controls['confirmPassword']" [label]="'confirm password'" [type]="'password'"></app-text-input> 
+    </div>
+    <div class="row mt-5" *ngIf="validationErrors?.length > 0">
+        <ul class="text-danger">
+            <li *ngFor="let error of validationErrors">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+    <div class="form-group text-center">
+        <button [disabled]="!registerForm.valid" class="btn btn-success mx-2" type="submit">Register</button>
+        <button class="btn btn-info mx-2" type="button" (click)="cancel()">Cancel</button>
+    </div>
+</form>
+
+
+
+<p>Form value: {{registerForm.value | json}}</p>
+<p>Form valid: {{registerForm.valid | json}}</p>
+<p *ngFor="let error of registerForm.errors?.required">{{error}}</p>
